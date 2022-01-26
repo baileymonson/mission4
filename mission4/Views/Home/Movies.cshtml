@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "Form";
+}
+
+@model mission4.Models.ApplicationResponse
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Fill out and application here</p>
+@*form to add another movie to the database*@
+<div>
+    <form method="post" asp-controller="Home" asp-action="Movies">
+        <label>Category</label>
+        <input asp-for="Category" />
+        <br />
+
+        <label>Title</label>
+        <input asp-for="Title" />
+        <br />
+
+        <label>Director</label>
+        <input asp-for="Director" />
+        <br />
+
+        <label>Rating</label>
+        <select asp-for="Rating">
+            <option value="G">G</option>
+            <option value="PG">PG</option>
+            <option value="PG13">PG-13</option>
+            <option value="R">R</option>
+        </select>
+        <br />
+
+        <label>Edited</label>
+        <select asp-for="Edited">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+        <br />
+
+        <label>Lent To</label>
+        <input asp-for="LentTo" />
+        <br />
+
+        <label>Notes</label>
+        <input asp-for="Notes" />
+        <br />
+
+        <button type="submit">Submit</button>
+        <div asp-validation-summary="All"></div>
+    </form>
+
+
+</div>
