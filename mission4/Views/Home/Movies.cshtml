@@ -9,10 +9,18 @@
 
 <p>Fill out and application here</p>
 @*form to add another movie to the database*@
+@*this page is also used for the edit page*@
 <div>
     <form method="post" asp-controller="Home" asp-action="Movies">
-        <label>Category</label>
-        <input asp-for="Category" />
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId">
+            @*this stuff is used to loop through the movie categories*@
+            <option value="">Select a Movie Category</option>
+            @foreach (Category c in ViewBag.Categories)
+            {
+                <option value="@c.CategoryId">@c.CategoryName</option>
+            }
+        </select>
         <br />
 
         <label>Title</label>
@@ -46,6 +54,10 @@
         <label>Notes</label>
         <input asp-for="Notes" />
         <br />
+        @*I have tried all of the suggestions to get my edit to not add a new record and nothing has worked but here is the suggestion prof hilton 
+        gave me but we couldn't get that to work either*@
+        @*<input type="hidden" asp-for="MovieId" />*@
+
 
         <button type="submit">Submit</button>
         <div asp-validation-summary="All"></div>

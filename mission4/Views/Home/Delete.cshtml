@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+}
+@*this is my delete page*@
+@model mission4.Models.ApplicationResponse
+
+<h2>Confirm Deletion</h2>
+<h3>Are you sure you want to delete the record for @Model.Title ?</h3>
+
+<form method="post" asp-controller="Home" asp-action="Delete">
+    <button class="button" type="submit">Delete</button>
+    @*double checking that they actually want to delete the stuff*@
+    <a class="button" asp-controller="Home" asp-action="MovieList">Cancel</a>
+
+    <input type="hidden" asp-for="MovieId" />
+</form>

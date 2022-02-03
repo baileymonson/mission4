@@ -15,16 +15,26 @@ namespace mission4.Models
             // leave blank for now
         }
         public DbSet<ApplicationResponse> responses { get; set; }
-
-        // adding more movies to the database by hand
+        public DbSet<Category>Categories{ get; set; }
+        // linking all of the category names to id's to be able to loop through them later
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                new Category { CategoryId = 1, CategoryName = "Action/Adventure" },
+                new Category { CategoryId = 2, CategoryName="Comedy"},
+                new Category { CategoryId = 3, CategoryName="Drama"},
+                new Category { CategoryId = 4, CategoryName = "Family" },
+                new Category { CategoryId = 5, CategoryName = "Horror/Suspense" },
+                new Category { CategoryId = 6, CategoryName = "Miscellaneous" },
+                new Category { CategoryId = 7, CategoryName = "Television" }
+                );
             mb.Entity<ApplicationResponse>().HasData(
+                // adding more movies to the database by hand
 
                 new ApplicationResponse
                 {
                     MovieId = 1,
-                    Category = "Comedy",
+                    CategoryId = 1,
                     Title = "Dumb and Dumber",
                     Director = "Peter Farrlley",
                     Rating = "PG",
@@ -35,7 +45,7 @@ namespace mission4.Models
                 new ApplicationResponse
                 {
                     MovieId = 2,
-                    Category = "Action/Sci-Fi",
+                    CategoryId = 2,
                     Title = "Star Wars: The Emperor Strikes Back",
                     Director = "George Lucas",
                     Rating = "PG-13",
@@ -46,7 +56,7 @@ namespace mission4.Models
                 new ApplicationResponse
                 {
                     MovieId = 3,
-                    Category = "Comedy/Romance",
+                    CategoryId = 3,
                     Title = "Better Off Dead",
                     Director = "Savage Steve Holland",
                     Rating = "PG",

@@ -10,11 +10,11 @@ namespace mission4.Models
     public class ApplicationResponse
     {
         // id to make a primary key in the main database
+        // required to make sure they enter in the correct data that is needed
         [Key]
         [Required]
         public int MovieId { get; set;  }
-        [Required]
-        public string Category { get; set; }
+
         [Required]
         public string Title { get; set; }
         [Required]
@@ -26,5 +26,10 @@ namespace mission4.Models
         public string LentTo { get; set; }
         [MaxLength(25)]
         public string Notes { get; set; }
+        // these link my new category table
+        [Required]
+        public int CategoryId { get; set; }
+        public Category Catagory { get; set; }
+       
     }
 }

@@ -8,7 +8,7 @@ using mission4.Models;
 namespace mission4.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20220126153551_Initial")]
+    [Migration("20220202223227_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,9 +23,8 @@ namespace mission4.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -51,13 +50,15 @@ namespace mission4.Migrations
 
                     b.HasKey("MovieId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("responses");
 
                     b.HasData(
                         new
                         {
                             MovieId = 1,
-                            Category = "Comedy",
+                            CategoryId = 1,
                             Director = "Peter Farrlley",
                             Edited = false,
                             LentTo = "",
@@ -68,7 +69,7 @@ namespace mission4.Migrations
                         new
                         {
                             MovieId = 2,
-                            Category = "Action/Sci-Fi",
+                            CategoryId = 2,
                             Director = "George Lucas",
                             Edited = false,
                             LentTo = "",
@@ -79,7 +80,7 @@ namespace mission4.Migrations
                         new
                         {
                             MovieId = 3,
-                            Category = "Comedy/Romance",
+                            CategoryId = 3,
                             Director = "Savage Steve Holland",
                             Edited = false,
                             LentTo = "",
@@ -87,6 +88,66 @@ namespace mission4.Migrations
                             Rating = "PG",
                             Title = "Better Off Dead"
                         });
+                });
+
+            modelBuilder.Entity("mission4.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Action/Adventure"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Drama"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            CategoryName = "Family"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            CategoryName = "Horror/Suspense"
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            CategoryName = "Miscellaneous"
+                        },
+                        new
+                        {
+                            CategoryId = 7,
+                            CategoryName = "Television"
+                        });
+                });
+
+            modelBuilder.Entity("mission4.Models.ApplicationResponse", b =>
+                {
+                    b.HasOne("mission4.Models.Category", "Catagory")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
